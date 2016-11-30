@@ -11,6 +11,18 @@ if($mysqli->connect_errno){
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <style type="text/css">
+    form label {
+        float: left;
+        width: 150px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+
+    }
+    .clear {
+        display: block;
+        clear: both;
+        width: 100%;
+    }
     fieldset {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -26,7 +38,7 @@ if($mysqli->connect_errno){
         width: 10%;
         height: 4%;
     }
-    p > input {
+    input {
         padding: 5px;
         width: 10%;
         height: 3%;
@@ -39,9 +51,12 @@ if($mysqli->connect_errno){
 
 		<fieldset>
 			<legend>Business</legend>
-			<p>Business Name: <input type="text" name="BusinessName" /></p>
-            <p>Field of Business: <input type="text" name="BusinessField" /></p>
-            <p>Location: <input type="text" name="Location" /></p>
+            <label for="name">Business Name:</label><input type="text" name="name" id="name" />
+            <br class="clear" />
+            <label for="field">Field of Business:</label><input type="text" name="field" id="field" />
+            <br class="clear" />
+            <label for="location">Location</label><input type="text" name="location" id="location" />
+            <br class="clear" />
 			<legend>Social Media Platform</legend>
             <select name = "SocialMediaPlatform">
                 <option value="value1">Facebook</option>
@@ -53,7 +68,11 @@ if($mysqli->connect_errno){
 
 		<fieldset>
 			<legend>Post</legend>
-			<p>Post Text: <input type="text" name="PostText" /></p>
+            <label for="time_posted">Post:</label><input type="text" name="time_posted" id="time_posted" />
+            <br class="clear" />
+
+            <label for="time_posted">Time Posted:</label><input type="text" name="time_posted" id="time_posted" />
+            <br class="clear" />
 			<legend>Content Type</legend>
 			<select name="ContentType">
                 <option value="value1">Photo</option>
