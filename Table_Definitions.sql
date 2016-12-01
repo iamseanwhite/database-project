@@ -27,12 +27,12 @@ name VARCHAR(255) NOT NULL
 )ENGINE=InnoDB;
 
 
-CREATE TABLE buisness_social_media(
+CREATE TABLE business_social_media(
 bid int,
 smpid int,
 PRIMARY KEY (bid, smpid),
 FOREIGN KEY (bid) REFERENCES business (id),
-FOREIGN KEY (smpid) REFERENCES social_madia_platform (id)
+FOREIGN KEY (smpid) REFERENCES social_media_platform (id)
 )ENGINE = InnoDB;
 
 CREATE table post_content(
