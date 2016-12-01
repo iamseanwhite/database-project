@@ -47,7 +47,7 @@ if($mysqli->connect_errno){
 </style>
 <body>
 <div>
-	<table>
+	<table style = "float: left">
 		<tr>
 			<td>Businesses</td>
 		</tr>
@@ -82,7 +82,144 @@ if($mysqli->connect_errno){
 	</table>
 </div>
 
-<form action="addperson.php" method="post">
+<div>
+	<table style = "float: left">
+		<tr>
+			<td>Social Media Platform</td>
+		</tr>
+		<tr>
+			<td>Name</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		
+			
+			<?php
+			if(!($stmt = $mysqli->prepare("SELECT social_media_platform.name FROM social_media_platform"))){
+				echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+			}
+
+			if(!$stmt->execute()){
+				echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			if(!$stmt->bind_result($s_m_name)){
+				echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			while($stmt->fetch()){
+			 echo "<tr>\n<td>\n" . $s_m_name . "\n</td>\n<td>\n";
+			}
+			$stmt->close();
+			?>
+	</table>
+</div>
+
+<div>
+	<table style = "float: left">
+		<tr>
+			<td>Posts</td>
+		</tr>
+		<tr>
+			<td>Time Posted</td>
+			<td>Character Length</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		
+			
+			<?php
+			if(!($stmt = $mysqli->prepare("SELECT post.time_posted, post.character_length FROM post"))){
+				echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+			}
+
+			if(!$stmt->execute()){
+				echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			if(!$stmt->bind_result($p_timeposted, $p_charlength)){
+				echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			while($stmt->fetch()){
+			 echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n<td>\n";
+			}
+			$stmt->close();
+			?>
+	</table>
+	
+</div>
+
+<div>
+	<table>
+		<tr>
+			<td>Content</td>
+		</tr>
+		<tr>
+			<td>Type</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		
+			
+			<?php
+			if(!($stmt = $mysqli->prepare("SELECT content.type FROM content"))){
+				echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+			}
+
+			if(!$stmt->execute()){
+				echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			if(!$stmt->bind_result($c_type)){
+				echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			while($stmt->fetch()){
+			 echo "<tr>\n<td>\n" . $c_type . "\n</td>\n<td>\n";
+			}
+			$stmt->close();
+			?>
+	</table>
+</div>
+<br><br>
+<div>
+	<table>
+		<tr>
+			<td>Feedback</td>
+		</tr>
+		<tr>
+			<td>Name</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		
+			
+			<?php
+			if(!($stmt = $mysqli->prepare("SELECT feedback.name FROM feedback"))){
+				echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+			}
+
+			if(!$stmt->execute()){
+				echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			if(!$stmt->bind_result($f_name)){
+				echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			while($stmt->fetch()){
+			 echo "<tr>\n<td>\n" . $f_name . "\n</td>\n<td>\n";
+			}
+			$stmt->close();
+			?>
+	</table>
+</div>
+<form action="business.php" method="post">
 
 		<fieldset>
 			<legend>Business</legend>
@@ -112,13 +249,20 @@ if($mysqli->connect_errno){
 				?>
             </select>
 		</fieldset>
+		
+		<p><input style = "float: left" type="submit" name="addbusiness" value="Add Business"/></p>
+		<p><input style = "float: left" type="submit" name="filterbusiness" value="Filter Business"/></p>
+		<p><input style = "float: left" type="submit" name="updatebusiness" value="Update Business"/></p>
+		<p><input type="submit" name="deletebusiness" value="Delete Business"/></p>
+</form>
 
+<form action="post.php" method="post">
 		<fieldset>
 			<legend>Post</legend>
-            <label for="time_posted">Post:</label><input type="text" name="time_posted" id="time_posted" />
+            <label for="time_posted">Time Posted (YYYY-MM-DD hh:mm:ss):</label><input type="datetime" name="time_posted" id="time_posted" />
             <br class="clear" />
 
-            <label for="time_posted">Time Posted:</label><input type="text" name="time_posted" id="time_posted" />
+            <label for="time_posted">Character Length:</label><input type="text" name="character_length" id="character_length" />
             <br class="clear" />
 			<legend>Content Type</legend>
 			<select name="ContentType">
@@ -161,7 +305,8 @@ if($mysqli->connect_errno){
             </select>
 
         </fieldset>
-		<p><input type="submit" /></p>
+		<p><input style = "float: left" type="submit" name="addpost" value="Add Post"/></p>
+		<p><input type="submit" name="filterpost" value="Filter Post"/></p>
 
 	</form>
 </body>
