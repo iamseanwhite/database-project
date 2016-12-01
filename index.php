@@ -46,6 +46,41 @@ if($mysqli->connect_errno){
     }
 </style>
 <body>
+<div>
+	<table>
+		<tr>
+			<td>Businesses</td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td>Field</td>
+			<td>Location</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		
+			
+			<?php
+			if(!($stmt = $mysqli->prepare("SELECT business.name, business.field, business.location FROM business"))){
+				echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+			}
+
+			if(!$stmt->execute()){
+				echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			if(!$stmt->bind_result($name, $field, $location)){
+				echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+			}
+			while($stmt->fetch()){
+			 echo "<tr>\n<td>\n" . $name . "\n</td>\n<td>\n" . $field . "\n</td>\n<td>\n" . $location . "\n</td>\n</tr>";
+			}
+			$stmt->close();
+			?>
+	</table>
+</div>
 
 <form action="addperson.php" method="post">
 
