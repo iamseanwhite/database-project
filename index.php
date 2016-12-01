@@ -2,7 +2,7 @@
 //Turn on error reporting
 ini_set('display_errors', 'On');
 //Connects to the database
-$mysqli = new mysqli("oniddb.cws.oregonstate.edu","semexanb-db","Z4cdb8HdX0rt2s6v","semexanb-db");
+$mysqli = new mysqli("oniddb.cws.oregonstate.edu","whites3-db","fwL6zE0hlK7GW9WU","whites3-db");
 if($mysqli->connect_errno){
     echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
@@ -59,10 +59,22 @@ if($mysqli->connect_errno){
             <br class="clear" />
 			<legend>Social Media Platform</legend>
             <select name = "SocialMediaPlatform">
-                <option value="value1">Facebook</option>
-                <option value="value2">Instagram</option>
-                <option value="value3">Twitter</option>
-                <option value="value4">Other</option>
+                <?php
+				if(!($stmt = $mysqli->prepare("SELECT id, name FROM social_media_platform"))){
+					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+				}
+
+				if(!$stmt->execute()){
+					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				if(!$stmt->bind_result($id, $s_m_name)){
+					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				while($stmt->fetch()){
+					echo '<option value=" '. $id . ' "> ' . $s_m_name . '</option>\n';
+				}
+				$stmt->close();
+				?>
             </select>
 		</fieldset>
 
@@ -75,13 +87,42 @@ if($mysqli->connect_errno){
             <br class="clear" />
 			<legend>Content Type</legend>
 			<select name="ContentType">
-                <option value="value1">Photo</option>
-                <option value="value2">Video</option>
-                <option value="value3">Text</option>
+                <?php
+				if(!($stmt = $mysqli->prepare("SELECT id, type FROM content"))){
+					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+				}
+
+				if(!$stmt->execute()){
+					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				if(!$stmt->bind_result($id, $c_type)){
+					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				while($stmt->fetch()){
+					echo '<option value=" '. $id . ' "> ' . $c_type . '</option>\n';
+				}
+				$stmt->close();
+				?>
             </select>
 
             <legend>Feedback</legend>
 			<select name="FeedbackType">
+			<?php
+				if(!($stmt = $mysqli->prepare("SELECT id, name FROM feedback"))){
+					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+				}
+
+				if(!$stmt->execute()){
+					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				if(!$stmt->bind_result($id, $f_name)){
+					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				while($stmt->fetch()){
+					echo '<option value=" '. $id . ' "> ' . $f_name . '</option>\n';
+				}
+				$stmt->close();
+				?>
             </select>
 
         </fieldset>
