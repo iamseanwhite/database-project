@@ -18,7 +18,7 @@ if (isset($_POST['addbusiness'])) {
 	if(!$stmt->execute()){
 		echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 	} else {
-        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+        header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
 	}
 }
 
@@ -32,7 +32,7 @@ else if (isset($_POST['filterbusiness'])) {
     if(!$stmt->execute()){
         echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }else{
-        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+        header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
     }
 
 
@@ -52,7 +52,7 @@ else if (isset($_POST['updatebusiness'])) {
     if(!$stmt->execute()){
         echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
     } else {
-        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+        header('Location:http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
     }
 }
 
@@ -69,7 +69,7 @@ else if (isset($_POST['updatebusiness'])) {
     if(!$stmt->execute()){
         echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
     } else {
-        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+        header('Location:http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
     }
 }
 
@@ -86,7 +86,7 @@ else if (isset($_POST['updatebusiness'])) {
     if(!$stmt->execute()){
         echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
     } else {
-        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+        header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
     }
 }
 
@@ -100,7 +100,7 @@ else if (isset($_POST['deletebusiness'])) {
     if (!$stmt->execute()) {
         echo "Execute failed: " . $mysqli->connect_errno . " " . $mysqli->connect_error;
     } else{
-        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+        header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
     }
     $stmt->close();
 

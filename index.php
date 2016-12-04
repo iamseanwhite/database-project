@@ -168,12 +168,26 @@ if($mysqli->connect_errno){
         <br class="clear" />
 
     </fieldset>
-    <p><input style = "float: left" type="submit" name="addsocialmedia" value="Add Social Media"/></p>
-    <p><input type="submit" name="filterpost" value="Filter Social Media"/></p>
+	<div>
+    <input style = "float: left" type="submit" name="addsocialmedia" value="Add Social Media"/>
+    <input type="submit" name="filtersocialmedia" value="Filter Social Media"/>
+	</div>
 
 </form>
 
+<form action="content.php" method="post">
+    <fieldset>
+        <legend>Content</legend>
+        <label for="content">Content Type:</label><input type="text" name="content_type" id="content_type" />
+        <br class="clear" />
+
+    </fieldset>
+	<div>
+    <input style = "float: left" type="submit" name="addcontent" value="Add Content"/>
+    <input type="submit" name="filtercontent" value="Filter Content"/>
+	</div>
 </form>
+
 <form action="feedback.php" method="post">
     <fieldset>
         <legend>Feedback</legend>
@@ -181,8 +195,11 @@ if($mysqli->connect_errno){
         <br class="clear" />
 
     </fieldset>
-    <p><input style = "float: left" type="submit" name="addfeedback" value="Add Feedback"/></p>
-    <p><input type="submit" name="filterpost" value="Filter Feedback"/></p>
+	<div>
+    <input style = "float: left" type="submit" name="addfeedback" value="Add Feedback"/>
+    <input type="submit" name="filterfeedback" value="Filter Feedback"/>
+	</div>
+</form>
 
 
 <div>
