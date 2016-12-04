@@ -10,8 +10,16 @@ if($mysqli->connect_errno){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
 <style type="text/css">
-    fieldset {
+    html {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
@@ -31,7 +39,7 @@ if($mysqli->connect_errno){
     }
 
 
-    select{
+    select {
         padding: 5px;
         width: 10%;
         height: 4%;
@@ -39,20 +47,25 @@ if($mysqli->connect_errno){
     input {
         padding: 5px;
         width: 10%;
-        height: 3%;
+        height: 4%;
         border: 1px solid;
     }
 
-     table, th, td{
+     table, th, td {
 
          padding: 8px;
-    }
+
+     }
     tr:nth-child(even) {background-color: #f2f2f2}
     th {
         background-color: rgba(44, 44, 44, 0.79);
         color: white;
     }
 
+    div > input {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
 
 </style>
 <body>
@@ -86,11 +99,12 @@ if($mysqli->connect_errno){
             ?>
         </select>
     </fieldset>
-
-    <p><input style = "float: left" type="submit" name="addbusiness" value="Add Business"/></p>
-    <p><input style = "float: left" type="submit" name="filterbusiness" value="Filter Business"/></p>
-    <p><input style = "float: left" type="submit" name="updatebusiness" value="Update Business"/></p>
-    <p><input type="submit" name="deletebusiness" value="Delete Business"/></p>
+    <div>
+    <input style = "float: left" type="submit" name="addbusiness" value="Add Business"/>
+    <input style = "float: left" type="submit" name="filterbusiness" value="Filter Business"/>
+    <input style = "float: left" type="submit" name="updatebusiness" value="Update Business"/>
+    <input type="submit" name="deletebusiness" value="Delete Business"/>
+    </div>
 </form>
 <form action="post.php" method="post">
     <fieldset>
@@ -142,9 +156,10 @@ if($mysqli->connect_errno){
         </select>
 
     </fieldset>
-    <p><input style = "float: left" type="submit" name="addpost" value="Add Post"/></p>
-    <p><input type="submit" name="filterpost" value="Filter Post"/></p>
-
+    <div>
+    <input style = "float: left" type="submit" name="addpost" value="Add Post"/>
+    <input type="submit" name="filterpost" value="Filter Post"/>
+    </div>
 </form>
 <form action="social_media.php" method="post">
     <fieldset>
@@ -185,8 +200,6 @@ if($mysqli->connect_errno){
             <td> </td>
             <td> </td>
         </tr>
-
-
         <?php
         if(!($stmt = $mysqli->prepare("SELECT business.name, business.field, business.location FROM business"))){
             echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
@@ -219,8 +232,6 @@ if($mysqli->connect_errno){
             <td> </td>
             <td> </td>
         </tr>
-
-
         <?php
         if(!($stmt = $mysqli->prepare("SELECT social_media_platform.name FROM social_media_platform"))){
             echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;

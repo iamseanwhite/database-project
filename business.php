@@ -18,56 +18,91 @@ if (isset($_POST['addbusiness'])) {
 	if(!$stmt->execute()){
 		echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 	} else {
-		echo "Added " . $stmt->affected_rows . " rows to business";
+        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
 	}
 }
 
 //SELECT
 else if (isset($_POST['filterbusiness'])) {
+    $name = $_POST['name'];
+    if(!($stmt = $mysqli->prepare("SELECT * FROM business WHERE name = '$name'"))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
 
-	$query = " SELECT id, name, field, location, bid, smpid, id, type, id, name, id, time_posted, character_length, pid, cid, pid, fid, id, name FROM social ";
-	$result = mysqli($query);
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+    }else{
+        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+    }
 
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
+
+    $stmt->close();
 }
 
-//UPDATE
+//UPDATE BY name
 else if (isset($_POST['updatebusiness'])) {
+    $name = $_POST['name'];
+    $field = $_POST['field'];
+    $location = $_POST['location'];
 
-	$query = " UPDATE business SET  id = '$id',  name = '$name',  field = '$field',  location = '$location',  bid = '$bid',  smpid = '$smpid',  id = '$id',  type = '$type',  id = '$id',  name = '$name',  id = '$id',  time_posted = '$time_posted',  character_length = '$character_length',  pid = '$pid',  cid = '$cid',  pid = '$pid',  fid = '$fid',  id = '$id',  name = '$name' WHERE col = val ";
-	$result = mysqli($query);
+    if(!($stmt = $mysqli->prepare( "UPDATE business SET name = '$name', field='$field', location='$location' WHERE name ='$name'"))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
 
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+    } else {
+        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+    }
+}
+
+//UPDATE BY field
+else if (isset($_POST['updatebusiness'])) {
+    $name = $_POST['name'];
+    $field = $_POST['field'];
+    $location = $_POST['location'];
+
+    if(!($stmt = $mysqli->prepare( "UPDATE business SET name = '$name', field='$field', location='$location' WHERE field ='$field'"))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+    } else {
+        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+    }
+}
+
+//UPDATE BY location
+else if (isset($_POST['updatebusiness'])) {
+    $name = $_POST['name'];
+    $field = $_POST['field'];
+    $location = $_POST['location'];
+
+    if(!($stmt = $mysqli->prepare( "UPDATE business SET name = '$name', field='$field', location='$location' WHERE location ='$location'"))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+    } else {
+        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+    }
 }
 
 //DELETE
 else if (isset($_POST['deletebusiness'])) {
-	
-	$query = " DELETE FROM business WHERE col = val ";
-	$result = mysqli($query);
+    $name = $_POST['name'];
+    if (!($stmt = $mysqli->prepare("DELETE FROM business WHERE name = '$name'"))) {
+        echo "Prepare failed: " . $stmt->errno . " " . $stmt->error;
+    }
 
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
+    if (!$stmt->execute()) {
+        echo "Execute failed: " . $mysqli->connect_errno . " " . $mysqli->connect_error;
+    } else{
+        header('Location: http://web.engr.oregonstate.edu/~semexanb/index.php');
+    }
+    $stmt->close();
 
-	}
 }
 ?>
