@@ -146,6 +146,28 @@ if($mysqli->connect_errno){
     <p><input type="submit" name="filterpost" value="Filter Post"/></p>
 
 </form>
+<form action="social_media.php" method="post">
+    <fieldset>
+        <legend>Social Media Platform</legend>
+        <label for="social_media_platform">Social Media:</label><input type="text" name="social_media_platform" id="social_media_platform" />
+        <br class="clear" />
+
+    </fieldset>
+    <p><input style = "float: left" type="submit" name="addsocialmedia" value="Add Social Media"/></p>
+    <p><input type="submit" name="filterpost" value="Filter Social Media"/></p>
+
+</form>
+
+</form>
+<form action="feedback.php" method="post">
+    <fieldset>
+        <legend>Feedback</legend>
+        <label for="feedback">Feedback:</label><input type="text" name="feedback" id="feedback" />
+        <br class="clear" />
+
+    </fieldset>
+    <p><input style = "float: left" type="submit" name="addfeedback" value="Add Feedback"/></p>
+    <p><input type="submit" name="filterpost" value="Filter Feedback"/></p>
 
 
 <div>
@@ -257,10 +279,10 @@ if($mysqli->connect_errno){
 <div>
     <table style="float: left">
         <tr>
-            <th>&nbsp</th>
+            <th>Content</th>
         </tr>
         <tr>
-            <td>Content Type</td>
+            <td>Type</td>
         </tr>
         <tr>
             <td> </td>
@@ -291,10 +313,10 @@ if($mysqli->connect_errno){
 <div>
     <table style="float: left">
         <tr>
-            <th>&nbsp</th>
+            <th>Feedback</th>
         </tr>
         <tr>
-            <td>Feedback</td>
+            <td>Type</td>
         </tr>
 
         <tr>
