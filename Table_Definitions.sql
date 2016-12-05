@@ -12,9 +12,10 @@ name VARCHAR(255) NOT NULL
 
 Create table post(
 id int PRIMARY KEY AUTO_INCREMENT,
-business int, 
 time_posted timestamp NOT NULL,
-character_length int NOT NULL
+character_length int NOT NULL,
+business int,
+FOREIGN KEY (business) REFERENCES business (id) 
 )ENGINE=InnoDB;
 
 Create table content(
