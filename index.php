@@ -88,6 +88,7 @@ if($mysqli->connect_errno){
     <input type="submit" name="deletebusiness" value="Delete By Name"/>
     </div>
 </form>
+
 <form action="post.php" method="post">
     <fieldset>
         <legend>Post</legend>
@@ -123,6 +124,7 @@ if($mysqli->connect_errno){
     <input type="submit" name="filterpost" value="Filter Post"/>
     </div>
 </form>
+
 <form action="social_media.php" method="post">
     <fieldset>
         <legend>Social Media Platform</legend>
@@ -163,6 +165,58 @@ if($mysqli->connect_errno){
 	</div>
 </form>
 
+<form action="bsm.php" method="post">
+    <fieldset>
+        <legend>Business / Social Media</legend>
+		
+		<label>Business</label>
+        <select name = "business">
+            <?php
+            if(!($stmt = $mysqli->prepare("SELECT id, name FROM business"))){
+                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+            }
+
+            if(!$stmt->execute()){
+                echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+            }
+            if(!$stmt->bind_result($b_id, $b_name)){
+                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+            }
+            while($stmt->fetch()){
+                echo '<option value=" '. $b_id . ' "> ' . $b_name . '</option>\n';
+            }
+            $stmt->close();
+            ?>
+        </select>
+		
+		<br class="clear" />
+		
+		<label>Social Media</label>
+        <select name = "socialmedia">
+            <?php
+            if(!($stmt = $mysqli->prepare("SELECT id, name FROM social_media_platform"))){
+                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+            }
+
+            if(!$stmt->execute()){
+                echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+            }
+            if(!$stmt->bind_result($s_m_id, $s_m_name)){
+                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+            }
+            while($stmt->fetch()){
+                echo '<option value=" '. $s_m_id . ' "> ' . $s_m_name . '</option>\n';
+            }
+            $stmt->close();
+            ?>
+        </select>
+        
+    </fieldset>
+    <div>
+    <input style = "float: left" type="submit" name="addbsm" value="Add B/SM Relation"/>
+    <input type="submit" name="filterbsm" value="Filter B/SM Relation"/>
+    </div>
+</form>
 
 <div>
     <table style="float: left">
@@ -259,7 +313,7 @@ if($mysqli->connect_errno){
             echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
         }
         while($stmt->fetch()){
-            echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n</tr>\n" . $p_business . "\n</td>\n</tr>\n";
+            echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n<td>\n" . $p_business . "\n</td>\n</tr>\n";
         }
         $stmt->close();
         ?>
