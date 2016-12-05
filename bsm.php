@@ -13,7 +13,7 @@ if (isset($_POST['addbsm'])) {
 	if(!($stmt = $mysqli->prepare("INSERT INTO business_social_media (bid, smpid)  VALUES (?,?) "))){
 		echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 	}
-	if(!($stmt->bind_param("ii",$_POST['business'],$_POST['socialmedia']))){
+	if(!($stmt->bind_param("ii",$_POST['business'], $_POST['socialmedia']))){
 		echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 	}
 	if(!$stmt->execute()){

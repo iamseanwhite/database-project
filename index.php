@@ -207,6 +207,7 @@ if($mysqli->connect_errno){
             while($stmt->fetch()){
                 echo '<option value=" '. $s_m_id . ' "> ' . $s_m_name . '</option>\n';
             }
+			print  s_m_id;
             $stmt->close();
             ?>
         </select>
