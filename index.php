@@ -83,9 +83,9 @@ if($mysqli->connect_errno){
     </fieldset>
     <div>
     <input style = "float: left" type="submit" name="addbusiness" value="Add Business"/>
-    <input style = "float: left" type="submit" name="filterbusiness" value="Filter Business"/>
-    <input style = "float: left" type="submit" name="updatebusiness" value="Update Business"/>
-    <input type="submit" name="deletebusiness" value="Delete Business"/>
+    <input style = "float: left" type="submit" name="filterbusiness" value="Filter By Field"/>
+    <input style = "float: left" type="submit" name="updatebusiness" value="Update By Name"/>
+    <input type="submit" name="deletebusiness" value="Delete By Name"/>
     </div>
 </form>
 <form action="post.php" method="post">
@@ -334,6 +334,46 @@ if($mysqli->connect_errno){
         $stmt->close();
         ?>
     </table>
+</div>
+
+<div>
+    <table style="float: left">
+        <tr>
+            <th>Business / Social Media</th>
+        </tr>
+        <tr>
+            <td>Business</td>
+            <td>Social Media</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+
+
+        <?php
+        if(!($stmt = $mysqli->prepare("
+		SELECT b.name, smp.name 
+		FROM business_social_media bsm 
+		INNER JOIN business b ON b.id = bsm.bid 
+		INNER JOIN social_media_platform smp ON smp.id = bsm.smpid"))){
+            echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+        }
+
+        if(!$stmt->execute()){
+            echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        if(!$stmt->bind_result($b_name, $s_m_name)){
+            echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        while($stmt->fetch()){
+            echo "<tr>\n<td>\n" . $b_name . "\n</td>\n<td>\n" . $s_m_name . "\n</td>\n</tr>\n";
+        }
+        $stmt->close();
+        ?>
+    </table>
+
 </div>
 
 
