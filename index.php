@@ -207,7 +207,7 @@ if($mysqli->connect_errno){
             while($stmt->fetch()){
                 echo '<option value=" '. $s_m_id . ' "> ' . $s_m_name . '</option>\n';
             }
-			print  s_m_id;
+			
             $stmt->close();
             ?>
         </select>
@@ -215,7 +215,7 @@ if($mysqli->connect_errno){
     </fieldset>
     <div>
     <input style = "float: left" type="submit" name="addbsm" value="Add B/SM Relation"/>
-    <input type="submit" name="filterbsm" value="Filter B/SM Relation"/>
+    <input type="submit" name="filterbsm" value="Filter By Business"/>
     </div>
 </form>
 

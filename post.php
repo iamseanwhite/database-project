@@ -24,7 +24,7 @@ if (isset($_POST['addpost'])) {
 }
 
 else if (isset($_POST['filterpost'])) {
-    echo '
+    echo '<div>
 <table style="float: left">
         <tr>
             <th>Posts</th>
@@ -41,7 +41,11 @@ else if (isset($_POST['filterpost'])) {
         </tr>';
 
         $business = $_POST['business'];
-        if(!($stmt = $mysqli->prepare("SELECT post.time_posted, post.character_length, business.name FROM post INNER JOIN business ON business.id = post.business WHERE business.name = '$business'"))){
+        if(!($stmt = $mysqli->prepare("
+		SELECT p.time_posted, p.character_length, b.name 
+		FROM post p 
+		INNER JOIN business b ON b.id = p.business 
+		WHERE b.id = '$business'"))){
             echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
         }
 
@@ -55,7 +59,8 @@ else if (isset($_POST['filterpost'])) {
             echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n<td>\n" . $p_business . "\n</td>\n</tr>\n";
         }
         $stmt->close();
-    echo '</table> ';
+    echo '</table>
+</div>';
 }
 
 ?>

@@ -24,17 +24,44 @@ if (isset($_POST['addbsm'])) {
 }
 
 //SELECT
-else if (isset($_POST['filterbusiness'])) {
+else if (isset($_POST['filterbsm'])) {
+    echo '<div>
+<table style="float: left">
+        <tr>
+            <th>Business / Social Media</th>
+        </tr>
+        <tr>
+            <td>Business</td>
+            <td>Social Media</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>';
+	
+		$business = $_POST['business'];
+        if(!($stmt = $mysqli->prepare("
+		SELECT b.name, smp.name 
+		FROM business b
+		INNER JOIN business_social_media bsm ON b.id = bsm.bid 
+		INNER JOIN social_media_platform smp ON smp.id = bsm.smpid 
+		WHERE b.id = '$business'"))){
+            echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+        }
 
-	$query = " SELECT id, name, field, location, bid, smpid, id, type, id, name, id, time_posted, character_length, pid, cid, pid, fid, id, name FROM social ";
-	$result = mysqli($query);
-
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
+        if(!$stmt->execute()){
+            echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        if(!$stmt->bind_result($b_name, $s_m_name)){
+            echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        while($stmt->fetch()){
+            echo "<tr>\n<td>\n" . $b_name . "\n</td>\n<td>\n" . $s_m_name . "\n</td>\n</tr>\n";
+        }
+        $stmt->close();
+    echo '</table>
+</div>';
 }
+
+?>
