@@ -19,56 +19,43 @@ if (isset($_POST['addpost'])) {
 	if(!$stmt->execute()){
 		echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 	} else {
-		echo "Added " . $stmt->affected_rows . " rows to posts";
+        header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
 	}
 }
 
-//SELECT
-else if (isset($_POST['filterbusiness'])) {
+else if (isset($_POST['filterpost'])) {
+    echo '
+<table style="float: left">
+        <tr>
+            <th>Posts</th>
+        </tr>
+        <tr>
+            <td>Time Posted</td>
+            <td>Character Length</td>
+			<td>Business</td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>';
 
-	$query = " SELECT id, name, field, location, bid, smpid, id, type, id, name, id, time_posted, character_length, pid, cid, pid, fid, id, name FROM social ";
-	$result = mysqli($query);
+        $business = $_POST['business'];
+        if(!($stmt = $mysqli->prepare("SELECT post.time_posted, post.character_length, business.name FROM post INNER JOIN business ON business.id = post.business WHERE business.name = '$business'"))){
+            echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+        }
 
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
+        if(!$stmt->execute()){
+            echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        if(!$stmt->bind_result($p_timeposted, $p_charlength, $p_business)){
+            echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        while($stmt->fetch()){
+            echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n<td>\n" . $p_business . "\n</td>\n</tr>\n";
+        }
+        $stmt->close();
+    echo '</table> ';
 }
 
-//UPDATE
-else if (isset($_POST['updatebusiness'])) {
-
-	$query = " UPDATE business SET  id = '$id',  name = '$name',  field = '$field',  location = '$location',  bid = '$bid',  smpid = '$smpid',  id = '$id',  type = '$type',  id = '$id',  name = '$name',  id = '$id',  time_posted = '$time_posted',  character_length = '$character_length',  pid = '$pid',  cid = '$cid',  pid = '$pid',  fid = '$fid',  id = '$id',  name = '$name' WHERE col = val ";
-	$result = mysqli($query);
-
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
-}
-
-//DELETE
-else if (isset($_POST['deletebusiness'])) {
-	
-	$query = " DELETE FROM business WHERE col = val ";
-	$result = mysqli($query);
-
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-
-	}
-}
 ?>

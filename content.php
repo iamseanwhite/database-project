@@ -18,56 +18,41 @@ if (isset($_POST['addcontent'])) {
 	if(!$stmt->execute()){
 		echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 	} else {
-		echo "Added " . $stmt->affected_rows . " rows to content";
+        header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
 	}
 }
 
-//SELECT
-else if (isset($_POST['filterbusiness'])) {
 
-	$query = " SELECT id, name, field, location, bid, smpid, id, type, id, name, id, time_posted, character_length, pid, cid, pid, fid, id, name FROM social ";
-	$result = mysqli($query);
+else if (isset($_POST['filtercontent'])){
+    echo'<table style="float: left">
+        <tr>
+            <th>Content</th>
+        </tr>
+        <tr>
+            <td>Type</td>
+        </tr>
+        <tr>
+            <td> </td>
+        </tr>';
 
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
+
+        $content = $_POST['content_type'];
+        if(!($stmt = $mysqli->prepare("SELECT content.type FROM content WHERE content.type = '$content'"))){
+            echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+        }
+
+        if(!$stmt->execute()){
+            echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        if(!$stmt->bind_result($c_type)){
+            echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+        }
+        while($stmt->fetch()){
+            echo "<tr>\n<td>\n" . $c_type . "\n</td>\n</tr>\n";
+        }
+        $stmt->close();
+
+    echo '</table>';
 }
 
-//UPDATE
-else if (isset($_POST['updatebusiness'])) {
-
-	$query = " UPDATE business SET  id = '$id',  name = '$name',  field = '$field',  location = '$location',  bid = '$bid',  smpid = '$smpid',  id = '$id',  type = '$type',  id = '$id',  name = '$name',  id = '$id',  time_posted = '$time_posted',  character_length = '$character_length',  pid = '$pid',  cid = '$cid',  pid = '$pid',  fid = '$fid',  id = '$id',  name = '$name' WHERE col = val ";
-	$result = mysqli($query);
-
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-	}
-}
-
-//DELETE
-else if (isset($_POST['deletebusiness'])) {
-	
-	$query = " DELETE FROM business WHERE col = val ";
-	$result = mysqli($query);
-
-	if( $result )
-	{
-		echo 'Success';
-	}
-	else
-	{
-		echo 'Query Failed';
-
-	}
-}
 ?>
