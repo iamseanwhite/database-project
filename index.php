@@ -79,25 +79,7 @@ if($mysqli->connect_errno){
         <br class="clear" />
         <label for="location">Location</label><input type="text" name="location" id="location" />
         <br class="clear" />
-        <label>Social Media Platform</label>
-        <select name = "SocialMediaPlatform">
-            <?php
-            if(!($stmt = $mysqli->prepare("SELECT id, name FROM social_media_platform"))){
-                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-            }
-
-            if(!$stmt->execute()){
-                echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-            }
-            if(!$stmt->bind_result($id, $s_m_name)){
-                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-            }
-            while($stmt->fetch()){
-                echo '<option value=" '. $id . ' "> ' . $s_m_name . '</option>\n';
-            }
-            $stmt->close();
-            ?>
-        </select>
+       
     </fieldset>
     <div>
     <input style = "float: left" type="submit" name="addbusiness" value="Add Business"/>
@@ -114,47 +96,27 @@ if($mysqli->connect_errno){
 
         <label for="time_posted">Character Length:</label><input type="text" name="character_length" id="character_length" />
         <br class="clear" />
-        <label>Content Type</label>
-        <select name="ContentType">
+        
+		<label>Business</label>
+        <select name = "business">
             <?php
-            if(!($stmt = $mysqli->prepare("SELECT id, type FROM content"))){
+            if(!($stmt = $mysqli->prepare("SELECT id, name FROM business"))){
                 echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
             }
 
             if(!$stmt->execute()){
                 echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
             }
-            if(!$stmt->bind_result($id, $c_type)){
+            if(!$stmt->bind_result($b_id, $b_name)){
                 echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
             }
             while($stmt->fetch()){
-                echo '<option value=" '. $id . ' "> ' . $c_type . '</option>\n';
+                echo '<option value=" '. $b_id . ' "> ' . $b_name . '</option>\n';
             }
             $stmt->close();
             ?>
         </select>
-
-        <br class="clear" />
-        <label>Feedback</label>
-        <select name="FeedbackType">
-            <?php
-            if(!($stmt = $mysqli->prepare("SELECT id, name FROM feedback"))){
-                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-            }
-
-            if(!$stmt->execute()){
-                echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-            }
-            if(!$stmt->bind_result($id, $f_name)){
-                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-            }
-            while($stmt->fetch()){
-                echo '<option value=" '. $id . ' "> ' . $f_name . '</option>\n';
-            }
-            $stmt->close();
-            ?>
-        </select>
-
+        
     </fieldset>
     <div>
     <input style = "float: left" type="submit" name="addpost" value="Add Post"/>
@@ -276,6 +238,7 @@ if($mysqli->connect_errno){
         <tr>
             <td>Time Posted</td>
             <td>Character Length</td>
+			<td>Business</td>
         </tr>
         <tr>
             <td> </td>
@@ -285,18 +248,18 @@ if($mysqli->connect_errno){
 
 
         <?php
-        if(!($stmt = $mysqli->prepare("SELECT post.time_posted, post.character_length FROM post"))){
+        if(!($stmt = $mysqli->prepare("SELECT post.time_posted, post.character_length, business.name FROM post INNER JOIN business ON business.id = post.business"))){
             echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
         }
 
         if(!$stmt->execute()){
             echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
         }
-        if(!$stmt->bind_result($p_timeposted, $p_charlength)){
+        if(!$stmt->bind_result($p_timeposted, $p_charlength, $p_business)){
             echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
         }
         while($stmt->fetch()){
-            echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n</tr>\n";
+            echo "<tr>\n<td>\n" . $p_timeposted . "\n</td>\n<td>\n" . $p_charlength . "\n</td>\n</tr>\n" . $p_business . "\n</td>\n</tr>\n";
         }
         $stmt->close();
         ?>

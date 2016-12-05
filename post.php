@@ -9,10 +9,11 @@ if($mysqli->connect_errno){
 
 //INSERT
 if (isset($_POST['addpost'])) {
-	if(!($stmt = $mysqli->prepare("INSERT INTO post (time_posted, character_length)  VALUES (?,?) "))){
+
+	if(!($stmt = $mysqli->prepare("INSERT INTO post (time_posted, character_length, business)  VALUES (?,?,?) "))){
 		echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 	}
-	if(!($stmt->bind_param("si",$_POST['time_posted'],$_POST['character_length']))){
+	if(!($stmt->bind_param("sii",$_POST['time_posted'],$_POST['character_length'],$_POST['business']))){
 		echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 	}
 	if(!$stmt->execute()){
