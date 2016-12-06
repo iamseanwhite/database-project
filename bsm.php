@@ -19,7 +19,7 @@ if (isset($_POST['addbsm'])) {
 	if(!$stmt->execute()){
 		echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 	} else {
-		echo "Added " . $stmt->affected_rows . " rows to Business / Social Media";
+        	header('Location: http://web.engr.oregonstate.edu/~whites3/social-media-archive/index.php');
 	}
 }
 
