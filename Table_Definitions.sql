@@ -14,7 +14,7 @@ Create table post(
 id int PRIMARY KEY AUTO_INCREMENT,
 time_posted timestamp NOT NULL,
 character_length int NOT NULL,
-business int,
+business int NOT NULL,
 FOREIGN KEY (business) REFERENCES business (id) 
 )ENGINE=InnoDB;
 
@@ -33,22 +33,22 @@ CREATE TABLE business_social_media(
 bid int,
 smpid int,
 PRIMARY KEY (bid, smpid),
-FOREIGN KEY (bid) REFERENCES business (id),
-FOREIGN KEY (smpid) REFERENCES social_media_platform (id)
+FOREIGN KEY (bid) REFERENCES business (id) ON DELETE CASCADE,
+FOREIGN KEY (smpid) REFERENCES social_media_platform (id) ON DELETE CASCADE
 )ENGINE = InnoDB;
 
 CREATE table post_content(
 pid int,
 cid int,
 PRIMARY KEY (pid, cid),
-FOREIGN KEY (pid) REFERENCES post (id),
-FOREIGN KEY (cid) REFERENCES content (id)
+FOREIGN KEY (pid) REFERENCES post (id) ON DELETE CASCADE,
+FOREIGN KEY (cid) REFERENCES content (id) ON DELETE CASCADE
 )ENGINE = InnoDB;
 
 CREATE table post_feedback(
 pid int,
 fid int,
 PRIMARY KEY (pid, fid),
-FOREIGN KEY (pid) REFERENCES post (id),
-FOREIGN KEY (fid) REFERENCES feedback (id)
+FOREIGN KEY (pid) REFERENCES post (id) ON DELETE CASCADE,
+FOREIGN KEY (fid) REFERENCES feedback (id) ON DELETE CASCADE
 )ENGINE = InnoDB;
