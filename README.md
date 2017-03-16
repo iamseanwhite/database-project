@@ -1,4 +1,4 @@
-# database-project
+# social-media-archive
 
 The database models the usage of social media among businesses. Tracking content
 creation trends gives insight into product marketing and the way a business chooses to expose
